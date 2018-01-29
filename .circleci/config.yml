@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Docker Login
+          command: docker login -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+      - run:
+          name: Docker Build
+          command: |
+            docker build -t petronetto/docker-python-deep-learning .
+      - run:
+          name: Docker Images
+          command: |
+            docker images
+      - run:
+          name: Push the develop tag
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              docker tag petronetto/docker-python-deep-learning petronetto/docker-python-deep-learning:develop
+              docker push petronetto/docker-python-deep-learning:develop
+            fi
+      - run:
+          name: Push the latest tag
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker tag petronetto/docker-python-deep-learning petronetto/docker-python-deep-learning:latest
+              docker push petronetto/docker-python-deep-learning:latest
+            fi
+      - run:
+          name: Backup tag
+          command: |
+            docker tag petronetto/docker-python-deep-learning petronetto/docker-python-deep-learning:v-$CIRCLE_BUILD_NUM
+            docker push petronetto/docker-python-deep-learning:v-$CIRCLE_BUILD_NUM
