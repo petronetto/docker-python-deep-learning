@@ -57,6 +57,7 @@ ENV BUILD_PACKAGES="\
         libpng16-16 \
         libfreetype6 \
         libjpeg62-turbo \
+        libgomp1 \
         python3 \
         python3-pip" \
     PIP_PACKAGES="\
