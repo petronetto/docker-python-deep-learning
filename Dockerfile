@@ -80,6 +80,7 @@ ENV BUILD_PACKAGES="\
     PYTHON_VERSION=3.6.4 \
     PATH=/usr/local/bin:$PATH \
     PYTHON_PIP_VERSION=9.0.1 \
+    JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
 RUN set -ex; \
@@ -100,23 +101,20 @@ RUN set -ex; \
     apt-get autoremove; \
     rm -rf /tmp/* /var/tmp/*; \
     rm -rf /var/lib/apt/lists/*; \
-    rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin; \
+    rm -f /var/cache/apt/archives/*.deb \
+        /var/cache/apt/archives/partial/*.deb \
+        /var/cache/apt/*.bin; \
     find /usr/lib/python3 -name __pycache__ | xargs rm -r; \
     rm -rf /root/.[acpw]*; \
     pip install jupyter && jupyter nbextension enable --py widgetsnbextension; \
-    mkdir -p ~/.ipython/profile_default/startup/; \
-    echo "import warnings" >> ~/.ipython/profile_default/startup/config.py; \
-    echo "warnings.filterwarnings('ignore')" >> ~/.ipython/profile_default/startup/config.py; \
-    echo "c.NotebookApp.token = u''" >> ~/.ipython/profile_default/startup/config.py; \
-    echo -e '#!/bin/bash'\
-        \\n\\njupyter notebook \
-        --port=8888 \
-        --no-browser \
-        --allow-root \
-        --ip=0.0.0.0 \
-        --NotebookApp.token= | tee /start.sh; \
-    chmod +x /start.sh
+    mkdir -p ${JUPYTER_CONFIG_DIR}; \
+    echo "import warnings" | tee ${JUPYTER_CONFIG_DIR}/config.py; \
+    echo "warnings.filterwarnings('ignore')" | tee -a ${JUPYTER_CONFIG_DIR}/config.py; \
+    echo "c.NotebookApp.token = u''" | tee -a ${JUPYTER_CONFIG_DIR}/config.py
 
 WORKDIR /home/notebooks
 
-CMD [ "/start.sh" ]
+EXPOSE 8888
+
+CMD [ "jupyter", "notebook", "--port=8888", "--no-browser", \
+    "--allow-root", "--ip=0.0.0.0", "--NotebookApp.token=" ]
