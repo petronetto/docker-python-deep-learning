@@ -64,6 +64,7 @@ ENV BUILD_PACKAGES="\
         pyyaml \
         pymkl \
         cffi \
+        h5py \
         requests \
         pillow \
         numpy \
