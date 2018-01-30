@@ -32,7 +32,7 @@
 
 ## Running the container
 
-```
+```sh
 docker run -it --name deep-learning \
            -v $(PWD):/home/notebooks \
            -p 8888:8888 -d \
