@@ -67,6 +67,7 @@ ENV BUILD_PACKAGES="\
         h5py \
         requests \
         pillow \
+        graphviz \
         numpy \
         pandas \
         scipy \
