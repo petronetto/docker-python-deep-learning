@@ -8,6 +8,7 @@
                   | |                                           __/ |
                   |_|                                          |___/
 ```
+[![nodesource/node](http://dockeri.co/image/petronetto/docker-python-deep-learning)](https://registry.hub.docker.com/u/petronetto/docker-python-deep-learning/)
 
 [![](https://images.microbadger.com/badges/image/petronetto/docker-python-deep-learning.svg)](https://microbadger.com/images/petronetto/docker-python-deep-learning "Get your own image badge on microbadger.com")
 [![GitHub issues](https://img.shields.io/github/issues/petronetto/docker-python-deep-learning.svg)](https://github.com/petronetto/docker-python-deep-learning/issues)
