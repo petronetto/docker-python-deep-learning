@@ -79,7 +79,8 @@ ENV BUILD_PACKAGES="\
         tensorflow \
         keras \
         http://download.pytorch.org/whl/cpu/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl \
-        torchvision" \
+        torchvision \
+        mxnet-mkl" \
     PYTHON_VERSION=3.6.4 \
     PATH=/usr/local/bin:$PATH \
     PYTHON_PIP_VERSION=9.0.1 \
