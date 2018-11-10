@@ -28,7 +28,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM debian:stretch-slim
+FROM python:3.6-slim-stretch
 
 LABEL maintainer="Juliano Petronetto <juliano@petronetto.com.br>" \
       name="Docker Python Deep Learning" \
@@ -51,18 +51,15 @@ ENV BUILD_PACKAGES="\
     APT_PACKAGES="\
         ca-certificates \
         openssl \
-        bash \
         graphviz \
         fonts-noto \
         libpng16-16 \
         libfreetype6 \
         libjpeg62-turbo \
-        libgomp1 \
-        python3 \
-        python3-pip" \
+        libgomp1" \
     PIP_PACKAGES="\
         pyyaml \
-        pymkl \
+        mkl \
         cffi \
         h5py \
         requests \
@@ -78,12 +75,9 @@ ENV BUILD_PACKAGES="\
         xgboost \
         tensorflow \
         keras \
-        http://download.pytorch.org/whl/cpu/torch-0.3.0.post4-cp35-cp35m-linux_x86_64.whl \
+        torch \
         torchvision \
         mxnet-mkl" \
-    PYTHON_VERSION=3.6.4 \
-    PATH=/usr/local/bin:$PATH \
-    PYTHON_PIP_VERSION=9.0.1 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
@@ -92,11 +86,6 @@ RUN set -ex; \
     apt-get upgrade -y; \
     apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
-    ln -s /usr/bin/idle3 /usr/bin/idle; \
-    ln -s /usr/bin/pydoc3 /usr/bin/pydoc; \
-    ln -s /usr/bin/python3 /usr/bin/python; \
-    ln -s /usr/bin/python3-config /usr/bin/python-config; \
-    ln -s /usr/bin/pip3 /usr/bin/pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
     apt-get remove --purge --auto-remove -y ${BUILD_PACKAGES}; \
@@ -105,10 +94,10 @@ RUN set -ex; \
     apt-get autoremove; \
     rm -rf /tmp/* /var/tmp/*; \
     rm -rf /var/lib/apt/lists/*; \
-    rm -f /var/cache/apt/archives/*.deb \
+    rm -rf /var/cache/apt/archives/*.deb \
         /var/cache/apt/archives/partial/*.deb \
         /var/cache/apt/*.bin; \
-    find /usr/lib/python3 -name __pycache__ | xargs rm -r; \
+    find /usr/lib/python3 -name __pycache__ | xargs rm -rf; \
     rm -rf /root/.[acpw]*; \
     pip install jupyter && jupyter nbextension enable --py widgetsnbextension; \
     mkdir -p ${JUPYTER_CONFIG_DIR}; \
