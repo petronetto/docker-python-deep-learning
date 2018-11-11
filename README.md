@@ -8,16 +8,16 @@
                   | |                                           __/ |
                   |_|                                          |___/
 ```
-[![nodesource/node](http://dockeri.co/image/petronetto/docker-python-deep-learning)](https://registry.hub.docker.com/u/petronetto/docker-python-deep-learning/)
+[![Docker Hub](http://dockeri.co/image/petronetto/docker-python-deep-learning)](https://registry.hub.docker.com/u/petronetto/docker-python-deep-learning/ "petronetto/docker-python-deep-learning")
 
-[![](https://images.microbadger.com/badges/image/petronetto/docker-python-deep-learning.svg)](https://microbadger.com/images/petronetto/docker-python-deep-learning "Get your own image badge on microbadger.com")
+[![Size and Layers](https://images.microbadger.com/badges/image/petronetto/docker-python-deep-learning.svg)](https://microbadger.com/images/petronetto/docker-python-deep-learning "Get your own image badge on microbadger.com")
 [![GitHub issues](https://img.shields.io/github/issues/petronetto/docker-python-deep-learning.svg)](https://github.com/petronetto/docker-python-deep-learning/issues)
 [![GitHub license](https://img.shields.io/github/license/petronetto/docker-python-deep-learning.svg)](https://raw.githubusercontent.com/petronetto/docker-python-deep-learning/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/petronetto/docker-python-deep-learning.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fpetronetto%2Fdocker-python-deep-learning)
 [![CircleCI](https://circleci.com/gh/petronetto/docker-python-deep-learning/tree/master.svg?style=svg)](https://circleci.com/gh/petronetto/docker-python-deep-learning/tree/master)
 
 ## What is include
-- Python 3.5
+- Python 3.6
 - NumPy
 - Pandas
 - SciPy
@@ -29,6 +29,7 @@
 - Keras
 - PyTorch
 - Torch Vision
+- MXNet
 - Jupyter Notebook
 
 ## Running the container
