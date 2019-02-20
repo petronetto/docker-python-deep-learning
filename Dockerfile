@@ -47,7 +47,8 @@ ENV BUILD_PACKAGES="\
         xz-utils \
         zlib1g-dev \
         git \
-        curl" \
+        curl \
+	software-properties-common" \
     APT_PACKAGES="\
         ca-certificates \
         openssl \
@@ -56,7 +57,8 @@ ENV BUILD_PACKAGES="\
         libpng16-16 \
         libfreetype6 \
         libjpeg62-turbo \
-        libgomp1" \
+        libgomp1 \
+        ffmpeg" \
     PIP_PACKAGES="\
         pyyaml \
         mkl \
@@ -84,8 +86,9 @@ ENV BUILD_PACKAGES="\
 RUN set -ex; \
     apt-get update -y; \
     apt-get upgrade -y; \
-    apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
+    add-apt-repository ppa:jonathonf/ffmpeg-4; \
+    apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
     apt-get remove --purge --auto-remove -y ${BUILD_PACKAGES}; \
