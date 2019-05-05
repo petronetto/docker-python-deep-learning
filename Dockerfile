@@ -58,8 +58,6 @@ ENV BUILD_PACKAGES="\
         libjpeg62-turbo \
         libgomp1" \
     PIP_PACKAGES="\
-        pyyaml \
-        mkl \
         cffi \
         h5py \
         requests \
@@ -76,8 +74,7 @@ ENV BUILD_PACKAGES="\
         tensorflow \
         keras \
         torch \
-        torchvision \
-        mxnet-mkl" \
+        torchvision" \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
