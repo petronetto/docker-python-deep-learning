@@ -28,7 +28,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM python:3.6-slim-stretch
+FROM debian:stretch-slim
 
 LABEL maintainer="Juliano Petronetto <juliano@petronetto.com.br>" \
       name="Docker Python Deep Learning" \
@@ -36,21 +36,31 @@ LABEL maintainer="Juliano Petronetto <juliano@petronetto.com.br>" \
       url="https://hub.docker.com/r/petronetto/docker-python-deep-learning" \
       vcs-url="https://github.com/petronetto/docker-python-deep-learning" \
       vendor="Petronetto DevTech" \
-      version="1.0"
+      version="1.1"
 
 ENV BUILD_PACKAGES="\
         build-essential \
         linux-headers-4.9 \
-        python3-dev \
         cmake \
         tcl-dev \
         xz-utils \
         zlib1g-dev \
+        libssl-dev \
+        libncurses5-dev \
+        libsqlite3-dev \
+        libreadline-dev \
+        libtk8.5 \
+        libgdm-dev \
+        libdb4o-cil-dev \
+        libpcap-dev \
         git \
+        wget \
         curl" \
     APT_PACKAGES="\
         ca-certificates \
         openssl \
+        sqlite3 \
+        bash \
         graphviz \
         fonts-noto \
         libpng16-16 \
@@ -58,6 +68,8 @@ ENV BUILD_PACKAGES="\
         libjpeg62-turbo \
         libgomp1" \
     PIP_PACKAGES="\
+        pyyaml \
+        pymkl \
         cffi \
         h5py \
         requests \
@@ -73,8 +85,10 @@ ENV BUILD_PACKAGES="\
         xgboost \
         tensorflow \
         keras \
-        torch \
-        torchvision" \
+        https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl \
+        https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl \
+        mxnet-mkl" \
+    PYTHON_VER=3.6.8 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
@@ -83,6 +97,17 @@ RUN set -ex; \
     apt-get upgrade -y; \
     apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
+    cd /tmp && wget https://www.python.org/ftp/python/${PYTHON_VER}/Python-${PYTHON_VER}.tgz; \
+    tar xvf Python-${PYTHON_VER}.tgz; \
+    cd Python-${PYTHON_VER}; \
+    ./configure --enable-optimizations && make -j8 && make altinstall; \
+    ln -s /usr/local/bin/python3.6 /usr/local/bin/python; \
+    ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip; \
+    ln -s /usr/local/bin/idle3.6 /usr/local/bin/idle; \
+    ln -s /usr/local/bin/pydoc3.6 /usr/local/bin/pydoc; \
+    ln -s /usr/local/bin/python3.6m-config /usr/local/bin/python-config; \
+    ln -s /usr/local/bin/pyvenv-3.6 /usr/local/bin/pyvenv; \
+    pip install -U -V pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
     apt-get remove --purge --auto-remove -y ${BUILD_PACKAGES}; \
@@ -91,10 +116,10 @@ RUN set -ex; \
     apt-get autoremove; \
     rm -rf /tmp/* /var/tmp/*; \
     rm -rf /var/lib/apt/lists/*; \
-    rm -rf /var/cache/apt/archives/*.deb \
+    rm -f /var/cache/apt/archives/*.deb \
         /var/cache/apt/archives/partial/*.deb \
         /var/cache/apt/*.bin; \
-    find /usr/lib/python3 -name __pycache__ | xargs rm -rf; \
+    find / -name __pycache__ | xargs rm -r; \
     rm -rf /root/.[acpw]*; \
     pip install jupyter && jupyter nbextension enable --py widgetsnbextension; \
     mkdir -p ${JUPYTER_CONFIG_DIR}; \
