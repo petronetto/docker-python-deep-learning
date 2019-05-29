@@ -98,7 +98,6 @@ ENV BUILD_PACKAGES="\
 RUN set -ex; \
     apt-get update -y; \
     apt-get upgrade -y; \
-    add-apt-repository ppa:jonathonf/ffmpeg-4; \
     apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
     cd /tmp && wget https://www.python.org/ftp/python/${PYTHON_VER}/Python-${PYTHON_VER}.tgz; \
