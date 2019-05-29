@@ -53,6 +53,7 @@ ENV BUILD_PACKAGES="\
         libgdm-dev \
         libdb4o-cil-dev \
         libpcap-dev \
+        software-properties-common \
         git \
         wget \
         curl" \
@@ -66,6 +67,7 @@ ENV BUILD_PACKAGES="\
         libpng16-16 \
         libfreetype6 \
         libjpeg62-turbo \
+        ffmpeg \
         libgomp1" \
     PIP_PACKAGES="\
         pyyaml \
@@ -95,6 +97,7 @@ ENV BUILD_PACKAGES="\
 RUN set -ex; \
     apt-get update -y; \
     apt-get upgrade -y; \
+    add-apt-repository ppa:jonathonf/ffmpeg-4; \
     apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
     cd /tmp && wget https://www.python.org/ftp/python/${PYTHON_VER}/Python-${PYTHON_VER}.tgz; \
