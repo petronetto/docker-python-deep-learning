@@ -45,7 +45,6 @@ ENV BUILD_PACKAGES="\
         tcl-dev \
         xz-utils \
         zlib1g-dev \
-        libbz2-dev \
         libssl-dev \
         libncurses5-dev \
         libsqlite3-dev \
@@ -71,8 +70,6 @@ ENV BUILD_PACKAGES="\
         ffmpeg \
         libgomp1" \
     PIP_PACKAGES="\
-        pyyaml \
-        pymkl \
         cffi \
         h5py \
         requests \
@@ -89,8 +86,7 @@ ENV BUILD_PACKAGES="\
         tensorflow \
         keras \
         https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl \
-        https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl \
-        mxnet-mkl" \
+        https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl" \
     PYTHON_VER=3.6.8 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
