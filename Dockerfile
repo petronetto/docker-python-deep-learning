@@ -45,6 +45,7 @@ ENV BUILD_PACKAGES="\
         tcl-dev \
         xz-utils \
         zlib1g-dev \
+        libbz2-dev \
         libssl-dev \
         libncurses5-dev \
         libsqlite3-dev \
@@ -95,9 +96,9 @@ ENV BUILD_PACKAGES="\
     LANG=C.UTF-8
 
 RUN set -ex; \
+    add-apt-repository ppa:jonathonf/ffmpeg-4; \
     apt-get update -y; \
     apt-get upgrade -y; \
-    add-apt-repository ppa:jonathonf/ffmpeg-4; \
     apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
     cd /tmp && wget https://www.python.org/ftp/python/${PYTHON_VER}/Python-${PYTHON_VER}.tgz; \
@@ -110,7 +111,7 @@ RUN set -ex; \
     ln -s /usr/local/bin/pydoc3.6 /usr/local/bin/pydoc; \
     ln -s /usr/local/bin/python3.6m-config /usr/local/bin/python-config; \
     ln -s /usr/local/bin/pyvenv-3.6 /usr/local/bin/pyvenv; \
-    pip install -U -V pip; \
+    pip install -U -v pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
     apt-get remove --purge --auto-remove -y ${BUILD_PACKAGES}; \
