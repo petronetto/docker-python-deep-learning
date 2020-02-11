@@ -17,7 +17,7 @@
 [![CircleCI](https://circleci.com/gh/petronetto/docker-python-deep-learning/tree/master.svg?style=svg)](https://circleci.com/gh/petronetto/docker-python-deep-learning/tree/master)
 
 ## What is include
-- Python 3.6
+- Python 3.8
 - NumPy
 - Pandas
 - SciPy
@@ -29,7 +29,6 @@
 - Keras
 - PyTorch
 - Torch Vision
-- MXNet
 - Jupyter Notebook
 
 ## Running the container
