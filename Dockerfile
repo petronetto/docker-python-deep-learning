@@ -87,7 +87,8 @@ ENV BUILD_PACKAGES="\
         keras \
         torch==1.4.0+cpu \
         torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html" \
-    PYTHON_VER=3.8.1 \
+    PYTHON=3.7 \
+    PYTHON_VER=${PYTHON}.6 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
@@ -100,12 +101,12 @@ RUN set -ex; \
     tar xvf Python-${PYTHON_VER}.tgz; \
     cd Python-${PYTHON_VER}; \
     ./configure --enable-optimizations && make -j8 && make altinstall; \
-    ln -s /usr/local/bin/python3.8 /usr/local/bin/python; \
-    ln -s /usr/local/bin/pip3.8 /usr/local/bin/pip; \
-    ln -s /usr/local/bin/idle3.8 /usr/local/bin/idle; \
-    ln -s /usr/local/bin/pydoc3.8 /usr/local/bin/pydoc; \
-    ln -s /usr/local/bin/python3.8m-config /usr/local/bin/python-config; \
-    ln -s /usr/local/bin/pyvenv-3.8 /usr/local/bin/pyvenv; \
+    ln -s /usr/local/bin/python${PYTHON} /usr/local/bin/python; \
+    ln -s /usr/local/bin/pip${PYTHON} /usr/local/bin/pip; \
+    ln -s /usr/local/bin/idle${PYTHON} /usr/local/bin/idle; \
+    ln -s /usr/local/bin/pydoc${PYTHON} /usr/local/bin/pydoc; \
+    ln -s /usr/local/bin/python${PYTHON}m-config /usr/local/bin/python-config; \
+    ln -s /usr/local/bin/pyvenv-${PYTHON} /usr/local/bin/pyvenv; \
     pip install -U -v pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
