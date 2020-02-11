@@ -40,7 +40,7 @@ LABEL maintainer="Juliano Petronetto <juliano@petronetto.com.br>" \
 
 ENV BUILD_PACKAGES="\
         build-essential \
-        linux-headers-4.9 \
+        linux-headers-4.19 \
         cmake \
         tcl-dev \
         xz-utils \
@@ -49,7 +49,7 @@ ENV BUILD_PACKAGES="\
         libncurses5-dev \
         libsqlite3-dev \
         libreadline-dev \
-        libtk8.5 \
+        libtk \
         libgdm-dev \
         libdb4o-cil-dev \
         libpcap-dev \
