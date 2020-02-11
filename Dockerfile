@@ -85,8 +85,8 @@ ENV BUILD_PACKAGES="\
         xgboost \
         tensorflow \
         keras \
-        torch==1.4.0+cpu \
-        torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html" \
+        torch \
+        torchvision" \
     PYTHON=3.7 \
     PYTHON_VER=3.7.6 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
