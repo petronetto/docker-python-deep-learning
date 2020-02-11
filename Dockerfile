@@ -100,12 +100,12 @@ RUN set -ex; \
     tar xvf Python-${PYTHON_VER}.tgz; \
     cd Python-${PYTHON_VER}; \
     ./configure --enable-optimizations && make -j8 && make altinstall; \
-    ln -s /usr/local/bin/python3.6 /usr/local/bin/python; \
-    ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip; \
-    ln -s /usr/local/bin/idle3.6 /usr/local/bin/idle; \
-    ln -s /usr/local/bin/pydoc3.6 /usr/local/bin/pydoc; \
-    ln -s /usr/local/bin/python3.6m-config /usr/local/bin/python-config; \
-    ln -s /usr/local/bin/pyvenv-3.6 /usr/local/bin/pyvenv; \
+    ln -s /usr/local/bin/python3.8 /usr/local/bin/python; \
+    ln -s /usr/local/bin/pip3.8 /usr/local/bin/pip; \
+    ln -s /usr/local/bin/idle3.8 /usr/local/bin/idle; \
+    ln -s /usr/local/bin/pydoc3.8 /usr/local/bin/pydoc; \
+    ln -s /usr/local/bin/python3.8m-config /usr/local/bin/python-config; \
+    ln -s /usr/local/bin/pyvenv-3.8 /usr/local/bin/pyvenv; \
     pip install -U -v pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
