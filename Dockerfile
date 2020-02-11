@@ -88,7 +88,7 @@ ENV BUILD_PACKAGES="\
         torch==1.4.0+cpu \
         torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html" \
     PYTHON=3.7 \
-    PYTHON_VER=${PYTHON}.6 \
+    PYTHON_VER=3.7.6 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
