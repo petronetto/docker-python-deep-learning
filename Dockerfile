@@ -28,7 +28,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-FROM debian:stretch-slim
+FROM python:3.7.6-slim-buster
 
 LABEL maintainer="Juliano Petronetto <juliano@petronetto.com.br>" \
       name="Docker Python Deep Learning" \
@@ -87,8 +87,6 @@ ENV BUILD_PACKAGES="\
         keras \
         torch \
         torchvision" \
-    PYTHON=3.7 \
-    PYTHON_VER=3.7.6 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
@@ -98,15 +96,6 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends ${APT_PACKAGES}; \
     apt-get install -y --no-install-recommends ${BUILD_PACKAGES}; \
     cd /tmp && wget https://www.python.org/ftp/python/${PYTHON_VER}/Python-${PYTHON_VER}.tgz; \
-    tar xvf Python-${PYTHON_VER}.tgz; \
-    cd Python-${PYTHON_VER}; \
-    ./configure --enable-optimizations && make -j8 && make altinstall; \
-    ln -s /usr/local/bin/python${PYTHON} /usr/local/bin/python; \
-    ln -s /usr/local/bin/pip${PYTHON} /usr/local/bin/pip; \
-    ln -s /usr/local/bin/idle${PYTHON} /usr/local/bin/idle; \
-    ln -s /usr/local/bin/pydoc${PYTHON} /usr/local/bin/pydoc; \
-    ln -s /usr/local/bin/python${PYTHON}m-config /usr/local/bin/python-config; \
-    ln -s /usr/local/bin/pyvenv-${PYTHON} /usr/local/bin/pyvenv; \
     pip install -U -v pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
