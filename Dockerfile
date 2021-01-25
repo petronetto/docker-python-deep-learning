@@ -30,13 +30,11 @@
 
 FROM debian:stretch-slim
 
-LABEL maintainer="Juliano Petronetto <juliano@petronetto.com.br>" \
+LABEL maintainer="Simon Struck <simon@simonscode.org>" \
       name="Docker Python Deep Learning" \
       description="Docker container for Python Deep Learning, with almost everything that you may need." \
-      url="https://hub.docker.com/r/petronetto/docker-python-deep-learning" \
-      vcs-url="https://github.com/petronetto/docker-python-deep-learning" \
-      vendor="Petronetto DevTech" \
-      version="1.1"
+      vcs-url="https://github.com/AnyTimeTraveler/docker-python-deep-learning" \
+      version="1.2"
 
 ENV BUILD_PACKAGES="\
         build-essential \
@@ -55,7 +53,10 @@ ENV BUILD_PACKAGES="\
         libpcap-dev \
         git \
         wget \
-        curl" \
+        curl \
+        libffi-dev \
+        libbz2-dev \
+        liblzma-dev" \
     APT_PACKAGES="\
         ca-certificates \
         openssl \
@@ -85,10 +86,11 @@ ENV BUILD_PACKAGES="\
         xgboost \
         tensorflow \
         keras \
-        https://download.pytorch.org/whl/cpu/torch-1.1.0-cp36-cp36m-linux_x86_64.whl \
-        https://download.pytorch.org/whl/cpu/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl \
-        mxnet-mkl" \
-    PYTHON_VER=3.6.8 \
+        torch \
+        torchvision \
+        mxnet-mkl \
+        PyMySQL" \
+    PYTHON_VER=3.8.7 \
     JUPYTER_CONFIG_DIR=/home/.ipython/profile_default/startup \
     LANG=C.UTF-8
 
@@ -101,12 +103,18 @@ RUN set -ex; \
     tar xvf Python-${PYTHON_VER}.tgz; \
     cd Python-${PYTHON_VER}; \
     ./configure --enable-optimizations && make -j8 && make altinstall; \
-    ln -s /usr/local/bin/python3.6 /usr/local/bin/python; \
-    ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip; \
-    ln -s /usr/local/bin/idle3.6 /usr/local/bin/idle; \
-    ln -s /usr/local/bin/pydoc3.6 /usr/local/bin/pydoc; \
-    ln -s /usr/local/bin/python3.6m-config /usr/local/bin/python-config; \
-    ln -s /usr/local/bin/pyvenv-3.6 /usr/local/bin/pyvenv; \
+    rm /usr/local/bin/python || true; \
+    ln -s /usr/local/bin/python3.8 /usr/local/bin/python; \
+    rm /usr/local/bin/pip || true; \
+    ln -s /usr/local/bin/pip3.8 /usr/local/bin/pip; \
+    rm /usr/local/bin/idle || true; \
+    ln -s /usr/local/bin/idle3.8 /usr/local/bin/idle; \
+    rm /usr/local/bin/pydoc || true; \
+    ln -s /usr/local/bin/pydoc3.8 /usr/local/bin/pydoc; \
+    rm /usr/local/bin/python-config || true; \
+    ln -s /usr/local/bin/python3.8m-config /usr/local/bin/python-config; \
+    rm /usr/local/bin/pyvenv || true; \
+    ln -s /usr/local/bin/pyvenv-3.8 /usr/local/bin/pyvenv; \
     pip install -U -V pip; \
     pip install -U -v setuptools wheel; \
     pip install -U -v ${PIP_PACKAGES}; \
@@ -116,9 +124,7 @@ RUN set -ex; \
     apt-get autoremove; \
     rm -rf /tmp/* /var/tmp/*; \
     rm -rf /var/lib/apt/lists/*; \
-    rm -f /var/cache/apt/archives/*.deb \
-        /var/cache/apt/archives/partial/*.deb \
-        /var/cache/apt/*.bin; \
+    rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin; \
     find / -name __pycache__ | xargs rm -r; \
     rm -rf /root/.[acpw]*; \
     pip install jupyter && jupyter nbextension enable --py widgetsnbextension; \
